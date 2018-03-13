@@ -1,0 +1,12 @@
+platform_homepage:
+    path:     /{page}
+    defaults: { _controller: PlatformBundle:Default:index, page: 1 }
+    requirements: { page: \d+ }
+delete:
+    path:     /delete/{id}-{page}
+    defaults: { _controller: PlatformBundle:Default:delete, page: 1 }
+    requirements: { id: \d+, page: \d+ }
+update:
+    path:     /update/{id}-{page}
+    defaults: { _controller: PlatformBundle:Default:update }
+    requirements: { id: \d+, page: \d+ }

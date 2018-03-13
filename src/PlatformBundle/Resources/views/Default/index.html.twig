@@ -1,0 +1,105 @@
+{% extends "@Platform/Default/layout.html.twig" %}
+
+	{%block title%} {{parent()}} {%endblock%}
+{%block body%}
+<div class="body">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3>Liste des personnes</h3>
+			<div class="text-right"><a class="alert alert-info add" href="#"><i class="fa fa-plus"></i></a></div>
+			<div class="table-striped table-hover">
+				<table class="table">
+					<thead>
+						<th>Identifiant</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+					</thead>
+					<tbody>
+						{% for person in persons %}
+						<tr>
+							<td>{{person.id}}</td>
+							<td>{{person.nom}}</td>
+							<td>{{person.prenom}}</td>
+							<td class="text-right">
+								<a href="{{path('update', {'id': person.id, 'page': pagination.page})}}" class="alert alert-warning"><i class="fa fa-pencil-alt"></i></a>
+								<a href="{{path('delete', {'id': person.id, 'page': pagination.page})}}" class="alert alert-danger"><i class="fa fa-trash"></i></a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+					<!-- <div class="pagination text-right">
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+						</ul>
+					</div> -->
+				<div class="pagination">
+				{% if pagination.nbPages > 0 %}
+				    <ul class="pagination">
+				        {% if pagination.page > 1 %}
+				            <li class="page-item">
+				                <a class="page-link" href="{{ path(pagination.nomRoute, {'page': 1}) }}">
+				                    <<
+				                </a>
+				            </li>
+				            <li class="page-item">
+				                <a class="page-link" href="{{ path(pagination.nomRoute, {'page': pagination.page-1}) }}">
+				                    <
+				                </a>
+				            </li>
+				        {% endif %}
+
+				        {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.nbPages)) %}
+				            <li {% if p == pagination.page %} class="active page-item"{% endif %}>
+				                <a class="page-link" href="{{ path(pagination.nomRoute, {'page': p}) }}">
+				                    {{ p }}
+				                </a>
+				            </li>
+				        {% endfor %}
+
+				        {% if pagination.page < pagination.nbPages %}
+				            <li class="page-item">
+				                <a class="page-link" href="{{ path(pagination.nomRoute, {'page': pagination.page+1}) }}">
+				                    >
+				                </a>
+				            </li>
+				            <li class="page-item">
+				                <a class="page-link" href="{{ path(pagination.nomRoute, {'page': pagination.nbPages}) }}">
+				                    >>
+				                </a>
+				            </li>
+				        {% endif %}
+				    </ul>
+				{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="popup hide">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				{{form_start(form)}}
+					<div class="form-group">
+						<label for="nom">{{form_label(form.nom)}}:</label>
+						<div class="input-group">
+	    					{{form_widget(form.nom, {'attr':{'class':'form-control'}})}}
+	    				</div>
+	    			</div>
+					<div class="form-group">
+						<label for="prenom">{{form_label(form.prenom)}}:</label>
+						<div class="input-group">
+	    					{{form_widget(form.prenom, {'attr':{'class':'form-control'}})}}
+	    				</div>
+	    			</div><br/>
+	    			<input type="submit" class="form-control" value="Ajouter" /><br/>
+	    			<div class="text-center"><a href="#" class="close">Fermer</a></div>
+				{{form_end(form)}}
+			</div>
+		</div>
+	</div>
+</div>
+{%endblock%}

@@ -1,5 +1,5 @@
 IllisiteTest
 ============
 
-Exéctez la commande composer update pour générer les vendors
-Ensuite php bin/console doctrine:schema:update --force pour créer les tables
+Exéctez la commande <b>composer</b> update pour générer les vendors<br/>
+Ensuite <b>php bin/console doctrine:schema:update --force</b> pour créer les tables
